@@ -1,5 +1,5 @@
 FROM centos:7
-MAINTAINER frank "songyangshi@gmail.com"
+MAINTAINER hankin "wojiaoliuhuajun@126.com"
 
 # yum res 
 RUN yum -y install epel-release \ 
