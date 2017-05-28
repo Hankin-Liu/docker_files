@@ -76,7 +76,11 @@ COPY def_setup/Bookmarks /root/.config/google-chrome/Default/
 COPY def_setup/google-chrome /usr/bin/
 ADD vim /root/vim
 COPY vim/.vimrc /root/vim
-COPY vim/.vim /root/vim
+COPY vim/vim.tar.gzaa /root/vim
+COPY vim/vim.tar.gzab /root/vim
+COPY vim/vim.tar.gzac /root/vim
+COPY vim/vim.tar.gzad /root/vim
+COPY vim/vim.tar.gzae /root/vim
 
 # eclipse
 #RUN mkdir -p $DIR_DEV \
@@ -86,7 +90,7 @@ RUN cat /root/def_res/eclipse/* > /root/eclipse.tar.gz && rm -rf /root/def_res/e
 
 #  vim
 RUN mv /root/vim/* /root
-	
+RUN cat /root/vim.tar.gza* | tar xz -C /root
 
 ENTRYPOINT ["/root/scripts/vnc_startup.sh"]
 CMD ["--tail-log"]
