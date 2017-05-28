@@ -53,6 +53,9 @@ RUN chmod +x  /root/scripts/*.sh /root/.vnc/xstartup /etc/xdg/xfce4/xinitrc \
 # chinese input 
 RUN  yum -y install ibus ibus-libpinyin ibus-qt ibus-table-chinese-array im-chooser && yum clean all -y
 
+# python
+RUN yum -y install python-devel kernel-devel && yum clean all -y
+
 # cpp reference browser and pdf reader ibus setup 
 RUN mkdir -p $DIR_CPP_REF \
 	&& wget -qO- $URL_CPP_REF | tar xz --strip 1 -C $DIR_CPP_REF \
@@ -71,7 +74,9 @@ ADD def_setup/eclipse_config.tar.gz /root/
 COPY def_setup/eclipse_workspace.tar.gz /root/
 COPY def_setup/Bookmarks /root/.config/google-chrome/Default/
 COPY def_setup/google-chrome /usr/bin/
-
+ADD vim /root/vim
+COPY vim/.vimrc /root/vim
+COPY vim/.vim /root/vim
 
 # eclipse
 #RUN mkdir -p $DIR_DEV \
@@ -79,6 +84,8 @@ COPY def_setup/google-chrome /usr/bin/
 RUN cat /root/def_res/eclipse/* > /root/eclipse.tar.gz && rm -rf /root/def_res/eclipse/ \
 	&& tar -zxf /root/eclipse.tar.gz -C /root/ && rm -f /root/eclipse.tar.gz
 
+#  vim
+RUN mv /root/vim/* /root
 	
 
 ENTRYPOINT ["/root/scripts/vnc_startup.sh"]
